@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, AreaChart, Area } from "recharts";
-import { api, setToken, clearToken, getStoredUser, storeUser } from "./api";
+import { api, setToken, clearToken, getStoredUser, storeUser, wakeBackend } from "./api";
 
 const FONT = `@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Poppins',sans-serif;}::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:10px;}@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}.fu{animation:fadeUp .3s ease both;}`;
 
@@ -19,7 +19,19 @@ const Spinner = () => <div style={{display:"flex",alignItems:"center",justifyCon
 
 /* ══ LOGIN ══ */
 function Login({onLogin}) {
-  const [email,setEmail]=useState(""); const [pass,setPass]=useState(""); const [err,setErr]=useState(""); const [busy,setBusy]=useState(false);
+  const [role,setRole]=useState("admin");
+  const [email,setEmail]=useState(""); const [pass,setPass]=useState("");
+  const [err,setErr]=useState(""); const [busy,setBusy]=useState(false);
+  const [serverStatus,setServerStatus]=useState("checking");
+
+  useEffect(()=>{
+    // Ping backend on mount to wake it up
+    setServerStatus("waking");
+    fetch("https://hub-portal-backend.onrender.com/health", {signal:AbortSignal.timeout(8000)})
+      .then(()=>setServerStatus("online"))
+      .catch(()=>setServerStatus("slow"));
+  },[]);
+
   const go = async () => {
     setErr(""); setBusy(true);
     try {
@@ -50,13 +62,30 @@ function Login({onLogin}) {
         <div style={{width:"100%",maxWidth:390}}>
           <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:26}}><SFLogo size={22}/><span style={{fontWeight:800,fontSize:14,color:C.dark}}>Hub Portal</span></div>
           <h2 style={{fontSize:26,fontWeight:800,color:C.dark,marginBottom:5,letterSpacing:"-0.02em"}}>Sign in to continue</h2>
-          <p style={{color:C.t3,fontSize:13,marginBottom:26}}>Enter your Shadowfax credentials below</p>
-          {[["EMAIL","email",email,setEmail,"text","you@shadowfax.in"],["PASSWORD","pass",pass,setPass,"password","••••••••"]].map(([lbl,id,val,set,type,ph])=>(<div key={id} style={{marginBottom:14}}><label style={{display:"block",fontSize:11,fontWeight:700,color:C.t2,marginBottom:5,letterSpacing:"0.05em"}}>{lbl}</label><input value={val} type={type} placeholder={ph} onChange={e=>set(e.target.value)} onKeyDown={e=>e.key==="Enter"&&go()} style={{width:"100%",padding:"12px 14px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:14,fontFamily:"'Poppins',sans-serif",outline:"none",color:C.dark,transition:"border .15s"}} onFocus={e=>e.target.style.borderColor=C.yellow} onBlur={e=>e.target.style.borderColor=C.border}/></div>))}
+          <p style={{color:C.t3,fontSize:13,marginBottom:20}}>Enter your Shadowfax credentials below</p>
+
+          {/* Server status indicator */}
+          {serverStatus==="waking"&&<div style={{background:"#FFF8E1",border:"1px solid #FFE082",borderRadius:8,padding:"9px 12px",fontSize:12,color:"#F59E0B",marginBottom:14,display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>⏳</span>Server is waking up — may take 30 seconds on first load...</div>}
+          {serverStatus==="online"&&<div style={{background:C.greenBg,border:"1px solid #86EFAC",borderRadius:8,padding:"9px 12px",fontSize:12,color:C.green,marginBottom:14,display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>✅</span>Server is online — ready to login</div>}
+
+          {/* Role selector */}
+          <div style={{display:"flex",gap:8,marginBottom:20,background:"#F1F3F5",padding:4,borderRadius:10}}>
+            {[["admin","Admin / Finance / Ops"],["hi","Hub Incharge (HI)"]].map(([r,lbl])=>(
+              <button key={r} onClick={()=>{setRole(r);setEmail("");setPass("");setErr("");}}
+                style={{flex:1,padding:"9px 0",borderRadius:8,border:"none",cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:"'Poppins',sans-serif",
+                  background:role===r?C.yellow:"transparent",
+                  color:role===r?C.dark:C.t3,transition:"all 0.2s"}}>
+                {lbl}
+              </button>
+            ))}
+          </div>
+
+          {[["EMAIL","email",email,setEmail,"text",role==="admin"?"admin@shadowfax.in":"hi@shadowfax.in"],["PASSWORD","pass",pass,setPass,"password","••••••••"]].map(([lbl,id,val,set,type,ph])=>(<div key={id} style={{marginBottom:14}}><label style={{display:"block",fontSize:11,fontWeight:700,color:C.t2,marginBottom:5,letterSpacing:"0.05em"}}>{lbl}</label><input value={val} type={type} placeholder={ph} onChange={e=>set(e.target.value)} onKeyDown={e=>e.key==="Enter"&&go()} style={{width:"100%",padding:"12px 14px",border:`1.5px solid ${C.border}`,borderRadius:8,fontSize:14,fontFamily:"'Poppins',sans-serif",outline:"none",color:C.dark,transition:"border .15s"}} onFocus={e=>e.target.style.borderColor=C.yellow} onBlur={e=>e.target.style.borderColor=C.border}/></div>))}
           {err&&<div style={{background:C.redBg,border:"1px solid #FECACA",borderRadius:8,padding:"9px 12px",fontSize:12,color:C.red,marginBottom:14,fontWeight:500}}>{err}</div>}
-          <button onClick={go} disabled={busy} style={{width:"100%",padding:"13px",background:C.yellow,border:"none",borderRadius:8,color:C.dark,fontSize:15,fontWeight:800,cursor:"pointer",fontFamily:"'Poppins',sans-serif",opacity:busy?.7:1}} onMouseEnter={e=>e.currentTarget.style.background=C.yellowDk} onMouseLeave={e=>e.currentTarget.style.background=C.yellow}>{busy?"Signing in…":"Sign In →"}</button>
+          <button onClick={go} disabled={busy||serverStatus==="waking"} style={{width:"100%",padding:"13px",background:C.yellow,border:"none",borderRadius:8,color:C.dark,fontSize:15,fontWeight:800,cursor:busy||serverStatus==="waking"?"not-allowed":"pointer",fontFamily:"'Poppins',sans-serif",opacity:busy||serverStatus==="waking"?.6:1}} onMouseEnter={e=>e.currentTarget.style.background=C.yellowDk} onMouseLeave={e=>e.currentTarget.style.background=C.yellow}>{busy?"Signing in…":serverStatus==="waking"?"Server waking up…":"Sign In →"}</button>
           <div style={{marginTop:16,padding:"12px 14px",background:"#F9FAFB",border:`1px solid ${C.border}`,borderRadius:8,fontSize:12,color:C.t3}}>
-            <strong style={{color:C.t2}}>Admin:</strong> admin@hubportal.in / admin123<br/>
-            <strong style={{color:C.t2}}>HI:</strong> Use credentials created by admin via <code>/auth/users</code>
+            <strong style={{color:C.t2}}>Demo admin:</strong> admin@hubportal.in / admin123<br/>
+            <strong style={{color:C.t2}}>HI login:</strong> Use credentials created by admin
           </div>
         </div>
       </div>
