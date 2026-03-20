@@ -7,12 +7,26 @@ export function clearToken() { token = null; localStorage.removeItem("hp_token")
 export function getStoredUser() { try { return JSON.parse(localStorage.getItem("hp_user")); } catch { return null; } }
 export function storeUser(u) { localStorage.setItem("hp_user", JSON.stringify(u)); }
 
+function parseError(err) {
+  // FastAPI can return detail as string OR array of validation errors
+  if (!err || !err.detail) return "Request failed";
+  if (typeof err.detail === "string") return err.detail;
+  if (Array.isArray(err.detail)) {
+    // Pydantic validation error — extract the first message
+    return err.detail.map(e => e.msg || JSON.stringify(e)).join(", ");
+  }
+  return JSON.stringify(err.detail);
+}
+
 async function req(path, opts = {}) {
-  const headers = { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {})
+  };
   const res = await fetch(`${BASE}${path}`, { ...opts, headers: { ...headers, ...opts.headers } });
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: "Request failed" }));
-    throw new Error(err.detail || "Request failed");
+    const err = await res.json().catch(() => ({ detail: "Request failed. Check your connection." }));
+    throw new Error(parseError(err));
   }
   return res.json();
 }
@@ -40,7 +54,7 @@ export const api = {
 
   exportCsv: (code, params = {}) => {
     const q = new URLSearchParams(Object.entries(params).filter(([,v]) => v)).toString();
-    return `${BASE}/export/hub/${code}/csv${q ? "?" + q : ""}?token=${token}`;
+    return `${BASE}/export/hub/${code}/csv${q ? "?" + q : ""}`;
   },
 
   triggerEtl: () => req("/etl/trigger", { method: "POST" }),
