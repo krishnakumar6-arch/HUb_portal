@@ -9,6 +9,8 @@ export const wakeBackend = async (cb) => {
   try { const r = await fetch(`${BASE}/health`); if(r.ok){cb("online");return;} } catch(_){}
   cb("online"); // let user try anyway
 };
+
+
 const headers = () => ({ "Content-Type": "application/json", ...(token ? {Authorization:`Bearer ${token}`} : {}) });
 const call = async (path, opts={}) => {
   const r = await fetch(`${BASE}${path}`, {...opts, headers:{...headers(),...(opts.headers||{})}});
