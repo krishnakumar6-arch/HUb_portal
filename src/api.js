@@ -8,49 +8,62 @@ export function getStoredUser() { try { return JSON.parse(localStorage.getItem("
 export function storeUser(u) { localStorage.setItem("hp_user", JSON.stringify(u)); }
 
 function parseError(err) {
-  if (!err || !err.detail) return "Request failed";
+  if (!err) return "Request failed";
+  if (typeof err === "string") return err;
   if (typeof err.detail === "string") return err.detail;
-  if (Array.isArray(err.detail)) return err.detail.map(e => e.msg || JSON.stringify(e)).join(", ");
-  return JSON.stringify(err.detail);
+  if (Array.isArray(err.detail)) return err.detail.map(e => e.msg || e.message || JSON.stringify(e)).join(", ");
+  if (err.message) return err.message;
+  return "Request failed";
 }
 
-// Retry fetch up to 3 times with delay — handles Render cold start
-async function fetchWithRetry(url, opts = {}, retries = 3, delay = 4000) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const res = await fetch(url, { ...opts, signal: AbortSignal.timeout(15000) });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ detail: "Request failed" }));
-        throw new Error(parseError(err));
-      }
-      return res.json();
-    } catch (e) {
-      // If it's a real HTTP error (not network), don't retry
-      if (e.message && !e.message.includes("fetch") && !e.message.includes("network") && !e.message.includes("timeout") && !e.message.includes("abort")) {
-        throw e;
-      }
-      if (i < retries - 1) {
-        await new Promise(r => setTimeout(r, delay));
-      } else {
-        throw new Error("Server is waking up — please wait 30 seconds and try again. (Render free tier sleeps after inactivity)");
-      }
-    }
-  }
-}
-
-async function req(path, opts = {}) {
+async function req(path, opts = {}, retries = 2) {
   const headers = {
     "Content-Type": "application/json",
     ...(token ? { Authorization: `Bearer ${token}` } : {})
   };
-  return fetchWithRetry(`${BASE}${path}`, { ...opts, headers: { ...headers, ...opts.headers } });
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 20000);
+      const res = await fetch(`${BASE}${path}`, {
+        ...opts,
+        headers: { ...headers, ...opts.headers },
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ detail: `Server error (${res.status})` }));
+        throw new Error(parseError(err));
+      }
+      return res.json();
+    } catch (e) {
+      const isNetworkError = e.name === "AbortError" || e.name === "TypeError" || e.message?.toLowerCase().includes("failed to fetch") || e.message?.toLowerCase().includes("network");
+      // If it's a real server error (4xx/5xx), don't retry
+      if (!isNetworkError) throw e;
+      // If we've exhausted retries, give a clear message
+      if (attempt >= retries) {
+        throw new Error("Cannot reach server. Please refresh the page and wait for the server status to show 'online' before signing in.");
+      }
+      // Wait before retry
+      await new Promise(r => setTimeout(r, 3000));
+    }
+  }
 }
 
-// Wake up the backend (call on app load)
-export async function wakeBackend() {
+export async function wakeBackend(onStatus) {
+  onStatus("checking");
   try {
-    await fetch(`${BASE}/health`, { signal: AbortSignal.timeout(5000) });
-  } catch (_) { /* silent — just pinging */ }
+    const r = await fetch(`${BASE}/health`, { signal: AbortSignal.timeout(6000) });
+    if (r.ok) { onStatus("online"); return; }
+  } catch (_) {}
+  // Second attempt after delay
+  onStatus("waking");
+  await new Promise(r => setTimeout(r, 5000));
+  try {
+    const r = await fetch(`${BASE}/health`, { signal: AbortSignal.timeout(10000) });
+    if (r.ok) { onStatus("online"); return; }
+  } catch (_) {}
+  onStatus("slow");
 }
 
 export const api = {

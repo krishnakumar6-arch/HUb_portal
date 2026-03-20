@@ -25,11 +25,9 @@ function Login({onLogin}) {
   const [serverStatus,setServerStatus]=useState("checking");
 
   useEffect(()=>{
-    // Ping backend on mount to wake it up
-    setServerStatus("waking");
-    fetch("https://hub-portal-backend.onrender.com/health", {signal:AbortSignal.timeout(8000)})
-      .then(()=>setServerStatus("online"))
-      .catch(()=>setServerStatus("slow"));
+    import("./api").then(({wakeBackend})=>{
+      wakeBackend(setServerStatus);
+    });
   },[]);
 
   const go = async () => {
@@ -65,7 +63,8 @@ function Login({onLogin}) {
           <p style={{color:C.t3,fontSize:13,marginBottom:20}}>Enter your Shadowfax credentials below</p>
 
           {/* Server status indicator */}
-          {serverStatus==="waking"&&<div style={{background:"#FFF8E1",border:"1px solid #FFE082",borderRadius:8,padding:"9px 12px",fontSize:12,color:"#F59E0B",marginBottom:14,display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>⏳</span>Server is waking up — may take 30 seconds on first load...</div>}
+          {(serverStatus==="waking"||serverStatus==="checking")&&<div style={{background:"#FFF8E1",border:"1px solid #FFE082",borderRadius:8,padding:"9px 12px",fontSize:12,color:"#F59E0B",marginBottom:14,display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>⏳</span>{serverStatus==="checking"?"Checking server...":"Server is starting up — please wait ~30 seconds..."}</div>}
+          {serverStatus==="slow"&&<div style={{background:"#FFF8E1",border:"1px solid #FFE082",borderRadius:8,padding:"9px 12px",fontSize:12,color:"#F59E0B",marginBottom:14,display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>⚠️</span>Server is slow to respond — try logging in anyway</div>}
           {serverStatus==="online"&&<div style={{background:C.greenBg,border:"1px solid #86EFAC",borderRadius:8,padding:"9px 12px",fontSize:12,color:C.green,marginBottom:14,display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:16}}>✅</span>Server is online — ready to login</div>}
 
           {/* Role selector */}
