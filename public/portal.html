@@ -147,12 +147,13 @@ async function fetchAllSheets(){
   let allRows=[];let tabs=0;
   for(let gid=0;gid<=20;gid++){
     try{
-      const r=await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`);
+      const r=await fetch(`/api/sheet?gid=${gid}`);
       if(!r.ok)break;
       const txt=await r.text();
-      if(!txt.trim()||txt.includes('<!DOCTYPE'))break;
+      if(!txt.trim()||txt.includes('<!DOCTYPE')||txt.includes('error'))break;
       const rows=parseCSV(txt);
       if(rows.length>0){allRows=allRows.concat(rows);tabs++;}
+      else break;
     }catch(e){break;}
   }
   return{rows:allRows,tabs};
