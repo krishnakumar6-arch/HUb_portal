@@ -150,9 +150,10 @@ async function fetchAllSheets(){
       const r=await fetch(`/api/sheet?gid=${gid}`);
       if(!r.ok)break;
       const txt=await r.text();
-      if(!txt.trim()||txt.includes('<!DOCTYPE'))break;
+      if(!txt.trim()||txt.includes('<!DOCTYPE')||txt.includes('error'))break;
       const rows=parseCSV(txt);
       if(rows.length>0){allRows=allRows.concat(rows);tabs++;}
+      else break;
     }catch(e){break;}
   }
   return{rows:allRows,tabs};
@@ -161,15 +162,17 @@ async function fetchAllSheets(){
 function processData(rows){
   if(!rows.length)return null;
   const keys=Object.keys(rows[0]);
-  const col=kws=>keys.find(k=>kws.some(w=>k.toLowerCase().includes(w.toLowerCase())))||'';
-  const hubCol=col(['sitting location','hub','location']);
-  const cityCol=col(['city']);const stateCol=col(['state']);
-  const catCol=col(['category chain','category','expense type']);
-  const amtCol=col(['expense amount','amount']);
-  const dateCol=col(['date of expense','date']);
-  const statusCol=col(['transaction status','status']);
-  const empCol=col(['name','employee']);const descCol=col(['description','report name']);
-  const facilityCol=col(['facility type','facility']);
+  // Exact column mapping based on your Happy sheet structure
+  const hubCol='Sitting Location';
+  const cityCol='City';
+  const stateCol='State';
+  const catCol='Category chain';
+  const amtCol='Expense Amount';
+  const dateCol='Date of expense';
+  const statusCol='Transaction Status';
+  const empCol='Name';
+  const descCol='Description';
+  const facilityCol='Facility Type';
 
   const hubMap={};
   rows.forEach(row=>{
