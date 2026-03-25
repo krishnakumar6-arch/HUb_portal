@@ -45,7 +45,7 @@ function Nav({screen,onNav}){
   return(
     <div style={{position:"sticky",top:0,zIndex:100,background:C.white,borderBottom:`1px solid ${C.border}`,boxShadow:"0 2px 8px rgba(0,0,0,0.05)"}}>
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 28px",height:58}}>
-        <div style={{display:"flex",alignItems:"center",gap:8}}><SFLogo s={22}/><div><div style={{fontWeight:900,fontSize:14,color:C.dark}}>SHADOWFAX</div><div style={{fontSize:8,color:C.yellow,fontWeight:700,letterSpacing:"0.07em"}}>Hub Portal</div></div></div>
+        <div style={{display:"flex",alignItems:"center",gap:8}}><SFLogo s={22}/><div><div style={{fontWeight:900,fontSize:14,color:C.dark}}>SHADOWFAX</div><div style={{fontSize:8,color:C.yellow,fontWeight:700,letterSpacing:"0.07em"}}>HUB Facility Expense Portal</div></div></div>
         <nav style={{display:"flex",gap:2}}>{tabs.map(t=>{const on=screen===t.id;return(<button key={t.id} onClick={()=>onNav(t.id)} style={{padding:"6px 16px",border:"none",background:"transparent",cursor:"pointer",fontSize:13,fontWeight:on?700:500,color:on?C.dark:C.t3,fontFamily:"'Poppins',sans-serif",position:"relative"}}>{t.l}{on&&<div style={{position:"absolute",bottom:-1,left:16,right:16,height:2.5,background:C.yellow,borderRadius:"2px 2px 0 0"}}/>}</button>);})}</nav>
         <div style={{padding:"7px 14px",background:"#F1F3F5",borderRadius:8,fontSize:12,color:C.t2,fontWeight:600}}>Admin — Demo Mode</div>
       </div>
