@@ -12,38 +12,62 @@
 #nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #E8EAED;box-shadow:0 2px 8px rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:58px}
 .logo{display:flex;align-items:center;gap:8px}.logo-text .name{font-weight:900;font-size:14px;color:#1A1A1A;line-height:1}.logo-text .tag{font-size:8px;color:#F5C518;font-weight:700;letter-spacing:0.07em}
 .nav-tabs{display:flex;gap:2px}.nav-tab{padding:6px 16px;border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:500;color:#999;font-family:'Poppins',sans-serif;position:relative;transition:color .15s}.nav-tab.active{font-weight:700;color:#1A1A1A}.nav-tab.active::after{content:'';position:absolute;bottom:-1px;left:16px;right:16px;height:2.5px;background:#F5C518;border-radius:2px 2px 0 0}
-.nav-badge{padding:7px 14px;background:#F1F3F5;border-radius:8px;font-size:12px;color:#555;font-weight:600}
-.status-dot{width:8px;height:8px;border-radius:50%;background:#999;display:inline-block;margin-right:5px}.status-dot.live{background:#1DB87E}.status-dot.loading{background:#F59E0B;animation:pulse 1s infinite}.status-dot.error{background:#E53935}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.status-pill{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#F1F3F5;color:#555}
+.dot{width:7px;height:7px;border-radius:50%}.dot.green{background:#1DB87E}.dot.amber{background:#F59E0B;animation:blink 1s infinite}.dot.red{background:#E53935}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .screen{display:none;padding:24px 28px}.screen.active{display:block}
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
-.kpi-card{border-radius:12px;padding:16px 18px;border:1px solid #E8EAED;background:#fff;position:relative;overflow:hidden}.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}.kpi-card.yellow::before{background:#F5C518}.kpi-card.green::before{background:#1DB87E}.kpi-card.red::before{background:#E53935}.kpi-card.dark{background:#1A1A1A;border-color:#333}.kpi-card.dark::before{background:#F5C518}
-.kpi-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#999;margin-bottom:8px}.kpi-card.dark .kpi-label{color:rgba(255,255,255,0.35)}
+.kpi-card{border-radius:12px;padding:16px 18px;border:1px solid #E8EAED;background:#fff;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#E8EAED}
+.kpi-card.y::before{background:#F5C518}.kpi-card.g::before{background:#1DB87E}.kpi-card.r::before{background:#E53935}
+.kpi-card.dark{background:#1A1A1A;border-color:#333}.kpi-card.dark::before{background:#F5C518}
+.kpi-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#999;margin-bottom:8px}
+.kpi-card.dark .kpi-label{color:rgba(255,255,255,0.35)}
 .kpi-value{font-size:24px;font-weight:800;color:#1A1A1A}.kpi-card.dark .kpi-value{color:#F5C518}
 .kpi-sub{font-size:11px;color:#999;margin-top:3px}.kpi-card.dark .kpi-sub{color:rgba(255,255,255,0.25)}
 .charts-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:12px;margin-bottom:12px}
-.chart-card{background:#fff;border:1px solid #E8EAED;border-radius:12px;padding:18px 20px}.chart-title{font-weight:800;color:#1A1A1A;font-size:14px;margin-bottom:4px}.chart-sub{font-size:11px;color:#999;margin-bottom:14px}
-.top-hubs{background:#1A1A1A;border-radius:12px;padding:18px 20px}.top-hubs-title{font-weight:800;color:#F5C518;font-size:14px;margin-bottom:14px}
-.top-hubs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.hub-tile{padding:11px 13px;border-radius:9px;cursor:pointer;transition:transform .15s}.hub-tile:hover{transform:translateY(-2px)}.hub-tile.top3{border:1px solid rgba(245,197,24,0.4);background:rgba(245,197,24,0.07)}.hub-tile.rest{border:1px solid rgba(255,255,255,0.1)}.hub-rank{font-size:10px;font-weight:800;color:#888;margin-bottom:4px}.hub-tile.top3 .hub-rank{color:#F5C518}.hub-code-t{font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hub-ytd{font-size:15px;font-weight:800;color:#F5C518}.hub-city-t{font-size:9px;color:rgba(255,255,255,0.3);margin-top:2px}
+.chart-card{background:#fff;border:1px solid #E8EAED;border-radius:12px;padding:18px 20px}
+.chart-title{font-weight:800;color:#1A1A1A;font-size:14px;margin-bottom:4px}.chart-sub{font-size:11px;color:#999;margin-bottom:14px}
+.top-hubs{background:#1A1A1A;border-radius:12px;padding:18px 20px}
+.top-hubs-title{font-weight:800;color:#F5C518;font-size:14px;margin-bottom:14px}
+.top-hubs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.hub-tile{padding:11px 13px;border-radius:9px;cursor:pointer;transition:transform .15s}
+.hub-tile:hover{transform:translateY(-2px)}
+.hub-tile.t3{border:1px solid rgba(245,197,24,0.4);background:rgba(245,197,24,0.07)}
+.hub-tile.tr{border:1px solid rgba(255,255,255,0.1)}
+.hub-rank{font-size:10px;font-weight:800;color:#888;margin-bottom:4px}.hub-tile.t3 .hub-rank{color:#F5C518}
+.hub-c{font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hub-y{font-size:15px;font-weight:800;color:#F5C518}.hub-ct{font-size:9px;color:rgba(255,255,255,0.3);margin-top:2px}
 .search-bar{background:#fff;border:1px solid #E8EAED;border-radius:12px;padding:14px 16px;display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.search-input{flex:1 1 180px;padding:9px 12px;border:1.5px solid #E8EAED;border-radius:8px;font-size:13px;font-family:'Poppins',sans-serif;outline:none}.search-input:focus{border-color:#F5C518}
-.search-select{flex:0 0 140px;padding:9px 10px;border:1.5px solid #E8EAED;border-radius:8px;font-size:13px;font-family:'Poppins',sans-serif;outline:none;background:#fff}
-.results-count{font-size:12px;color:#999;font-weight:600;margin-bottom:12px}
-.hubs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px}
-.hub-card{background:#fff;border-radius:12px;padding:14px;cursor:pointer;transition:all .15s;border-left:3px solid #F5C518;border-top:1px solid #E8EAED;border-right:1px solid #E8EAED;border-bottom:1px solid #E8EAED}.hub-card.flagged{border-left-color:#E53935;border-color:#FECACA}.hub-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.08)}
-.hub-card-code{font-weight:800;font-size:13px;color:#1A1A1A}.hub-card-location{font-size:11px;color:#999;margin-top:2px}.hub-card-spend{font-size:19px;font-weight:800;color:#1A1A1A;margin-top:8px}.hub-card.flagged .hub-card-spend{color:#E53935}
-.chip{padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}.chip-red{background:#FEF2F2;color:#E53935}.chip-green{background:#E8FBF3;color:#1DB87E}.chip-amber{background:#FFFBEB;color:#B45309}.chip-dark{background:#2A2A2A;color:#fff}.chip-blue{background:#E3F2FD;color:#1565C0}
+.si{flex:1 1 180px;padding:9px 12px;border:1.5px solid #E8EAED;border-radius:8px;font-size:13px;font-family:'Poppins',sans-serif;outline:none}
+.si:focus{border-color:#F5C518}
+.ss{flex:0 0 140px;padding:9px 10px;border:1.5px solid #E8EAED;border-radius:8px;font-size:13px;font-family:'Poppins',sans-serif;outline:none;background:#fff}
+.rc{font-size:12px;color:#999;font-weight:600;margin-bottom:12px}
+.hg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px}
+.hc{background:#fff;border-radius:12px;padding:14px;cursor:pointer;transition:all .15s;border-left:3px solid #F5C518;border-top:1px solid #E8EAED;border-right:1px solid #E8EAED;border-bottom:1px solid #E8EAED}
+.hc.fl{border-left-color:#E53935;border-color:#FECACA}
+.hc:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.08)}
+.hc-code{font-weight:800;font-size:13px;color:#1A1A1A}.hc-loc{font-size:11px;color:#999;margin-top:2px}
+.hc-spend{font-size:19px;font-weight:800;color:#1A1A1A;margin-top:8px}.hc.fl .hc-spend{color:#E53935}
+.chip{padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}
+.cr{background:#FEF2F2;color:#E53935}.cg{background:#E8FBF3;color:#1DB87E}.ca{background:#FFFBEB;color:#B45309}.cd{background:#2A2A2A;color:#fff}.cb{background:#E3F2FD;color:#1565C0}
 .back-btn{padding:6px 14px;background:#fff;border:1px solid #E8EAED;border-radius:8px;font-size:12px;cursor:pointer;font-weight:700;font-family:'Poppins',sans-serif;margin-bottom:14px}
-.hub-header{background:#1A1A1A;border-radius:12px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
-.hub-header-info h2{color:#F5C518;font-size:20px;font-weight:800;margin-bottom:8px}
-.hub-meta{display:flex;gap:18px;flex-wrap:wrap}.meta-label{color:rgba(255,255,255,0.3);font-size:10px;text-transform:uppercase}.meta-value{color:rgba(255,255,255,0.9);font-size:12px;font-weight:700;margin-top:1px}
-.hub-total-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 16px;text-align:right}.hub-total-label{color:rgba(255,255,255,0.3);font-size:10px;text-transform:uppercase;margin-bottom:3px}.hub-total-value{color:#F5C518;font-size:20px;font-weight:800}
-.table-card{background:#fff;border:1px solid #E8EAED;border-radius:12px;padding:18px 20px;margin-bottom:12px}.table-title{font-weight:800;color:#1A1A1A;font-size:14px;margin-bottom:14px}
-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'Poppins',sans-serif}thead tr{background:#1A1A1A}th{padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#F5C518;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}tbody tr{border-bottom:1px solid #E8EAED;transition:background .1s}tbody tr:hover{background:#FFFBEA}td{padding:10px 12px;color:#555;white-space:nowrap}td.bold{font-weight:800;color:#1A1A1A}td.red{font-weight:800;color:#E53935}
-.section-header{margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px}.section-header h1{font-size:22px;font-weight:800;color:#1A1A1A}.section-header p{color:#999;font-size:13px;margin-top:2px}
-.loading-overlay{text-align:center;padding:60px 20px;color:#999}.loading-spinner{width:36px;height:36px;border:3px solid #E8EAED;border-top-color:#F5C518;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.error-box{background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;padding:16px 20px;color:#E53935;font-size:13px;line-height:1.8}
+.hh{background:#1A1A1A;border-radius:12px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.hh h2{color:#F5C518;font-size:20px;font-weight:800;margin-bottom:8px}
+.hm{display:flex;gap:18px;flex-wrap:wrap}.ml{color:rgba(255,255,255,0.3);font-size:10px;text-transform:uppercase}.mv{color:rgba(255,255,255,0.9);font-size:12px;font-weight:700;margin-top:1px}
+.htb{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 16px;text-align:right}
+.htl{color:rgba(255,255,255,0.3);font-size:10px;text-transform:uppercase;margin-bottom:3px}.htv{color:#F5C518;font-size:20px;font-weight:800}
+.tc{background:#fff;border:1px solid #E8EAED;border-radius:12px;padding:18px 20px;margin-bottom:12px}
+.tt{font-weight:800;color:#1A1A1A;font-size:14px;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:12px;font-family:'Poppins',sans-serif}
+thead tr{background:#1A1A1A}th{padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#F5C518;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+tbody tr{border-bottom:1px solid #E8EAED;transition:background .1s}tbody tr:hover{background:#FFFBEA}
+td{padding:10px 12px;color:#555;white-space:nowrap}td.b{font-weight:800;color:#1A1A1A}td.red{font-weight:800;color:#E53935}
+.sh{margin-bottom:18px}.sh h1{font-size:22px;font-weight:800;color:#1A1A1A}.sh p{color:#999;font-size:13px;margin-top:2px}
+.prog{background:#fff;border:1px solid #E8EAED;border-radius:12px;padding:24px 28px;text-align:center;margin-bottom:16px}
+.prog-bar-wrap{width:100%;background:#F1F3F5;border-radius:10px;height:8px;margin:14px 0 8px;overflow:hidden}
+.prog-bar{height:8px;background:#F5C518;border-radius:10px;transition:width .3s;width:0%}
+.prog-label{font-size:13px;font-weight:600;color:#555}.prog-sub{font-size:12px;color:#999;margin-top:4px}
 .cat-badge{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;background:rgba(245,197,24,0.15);color:#D4A800}
 </style>
 </head>
@@ -58,234 +82,217 @@ table{width:100%;border-collapse:collapse;font-size:12px;font-family:'Poppins',s
     <button class="nav-tab" onclick="showScreen('search')">Hub Explorer</button>
     <button class="nav-tab" onclick="showScreen('audit')">Audit Flags</button>
   </div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <span id="dataStatus" style="font-size:12px;color:#999;font-weight:500"><span class="status-dot loading"></span>Loading...</span>
-    <div class="nav-badge">HUB Facility Expense Portal</div>
-  </div>
+  <div class="status-pill"><div class="dot amber" id="sdot"></div><span id="stxt">Loading...</span></div>
 </div>
 
 <!-- DASHBOARD -->
 <div id="screen-dashboard" class="screen active">
-  <div id="dash-loading" class="loading-overlay"><div class="loading-spinner"></div><div style="font-weight:600;color:#555;margin-bottom:4px">Loading your hub expense data...</div><div style="font-size:12px">Fetching from Google Sheets</div></div>
-  <div id="dash-content" style="display:none">
-    <div class="section-header"><div><h1>Network Overview</h1><p id="dash-sub">—</p></div></div>
+  <div id="prog-wrap" class="prog">
+    <div class="prog-label" id="prog-label">Fetching your expense data...</div>
+    <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar"></div></div>
+    <div class="prog-sub" id="prog-sub">Connecting to Google Sheets</div>
+  </div>
+  <div id="dash" style="display:none">
+    <div class="sh"><h1>Network Overview</h1><p id="dsub">—</p></div>
     <div class="kpi-grid">
-      <div class="kpi-card yellow"><div class="kpi-label">🏢 Total Hubs</div><div class="kpi-value" id="kpi-hubs">—</div><div class="kpi-sub">Across India</div></div>
-      <div class="kpi-card dark"><div class="kpi-label">💰 Total Spend</div><div class="kpi-value" id="kpi-spend">—</div><div class="kpi-sub" id="kpi-spend-sub">—</div></div>
-      <div class="kpi-card red"><div class="kpi-label">⚠️ Flagged Hubs</div><div class="kpi-value" id="kpi-flagged">—</div><div class="kpi-sub">Above ₹2L</div></div>
-      <div class="kpi-card green"><div class="kpi-label">📋 Total Records</div><div class="kpi-value" id="kpi-records">—</div><div class="kpi-sub">Transactions</div></div>
+      <div class="kpi-card y"><div class="kpi-label">🏢 Hubs</div><div class="kpi-value" id="k1">—</div><div class="kpi-sub">Unique sitting locations</div></div>
+      <div class="kpi-card dark"><div class="kpi-label">💰 Total Spend</div><div class="kpi-value" id="k2">—</div><div class="kpi-sub" id="k2s">—</div></div>
+      <div class="kpi-card r"><div class="kpi-label">⚠️ Flagged</div><div class="kpi-value" id="k3">—</div><div class="kpi-sub">Above ₹2L spend</div></div>
+      <div class="kpi-card g"><div class="kpi-label">📋 Records</div><div class="kpi-value" id="k4">—</div><div class="kpi-sub">Total transactions</div></div>
     </div>
     <div class="charts-grid">
-      <div class="chart-card"><div class="chart-title">Spend by state</div><div class="chart-sub">YTD total</div><canvas id="stateChart" height="220"></canvas></div>
-      <div class="chart-card"><div class="chart-title">Category mix</div><div class="chart-sub">National split</div><canvas id="catChart" height="220"></canvas></div>
+      <div class="chart-card"><div class="chart-title">Spend by state</div><div class="chart-sub">YTD total</div><canvas id="sc" height="220"></canvas></div>
+      <div class="chart-card"><div class="chart-title">Category mix</div><div class="chart-sub">National split</div><canvas id="cc" height="220"></canvas></div>
     </div>
-    <div class="top-hubs"><div class="top-hubs-title">Top hubs by spend</div><div class="top-hubs-grid" id="topHubsGrid"></div></div>
+    <div class="top-hubs"><div class="top-hubs-title">Top hubs by spend</div><div class="top-hubs-grid" id="thg"></div></div>
   </div>
-  <div id="dash-error" style="display:none" class="error-box"></div>
 </div>
 
 <!-- SEARCH -->
 <div id="screen-search" class="screen">
-  <div class="section-header"><div><h1>Hub Explorer</h1><p>Search and filter your hubs</p></div></div>
+  <div class="sh"><h1>Hub Explorer</h1><p>Search and filter hubs</p></div>
   <div class="search-bar">
-    <input class="search-input" id="searchInput" placeholder="Search hub, city, state..." oninput="filterHubs()"/>
-    <select class="search-select" id="stateFilter" onchange="filterHubs()"><option value="">All States</option></select>
-    <select class="search-select" id="facilityFilter" onchange="filterHubs()"><option value="">All Facility Types</option></select>
-    <select class="search-select" id="sortFilter" onchange="filterHubs()"><option value="spend">Top Spend</option><option value="name">Name A–Z</option></select>
+    <input class="si" id="qi" placeholder="Hub name, city, state..." oninput="fh()"/>
+    <select class="ss" id="sf" onchange="fh()"><option value="">All States</option></select>
+    <select class="ss" id="ff" onchange="fh()"><option value="">All Facility Types</option></select>
+    <select class="ss" id="sof" onchange="fh()"><option value="spend">Top Spend</option><option value="name">Name A–Z</option></select>
   </div>
-  <div class="results-count" id="resultsCount">Loading...</div>
-  <div class="hubs-grid" id="hubsGrid"><div class="loading-overlay"><div class="loading-spinner"></div></div></div>
+  <div class="rc" id="rc">Loading...</div>
+  <div class="hg" id="hg"></div>
 </div>
 
 <!-- AUDIT -->
 <div id="screen-audit" class="screen">
-  <div class="section-header"><div><h1>Audit & Anomaly Flags</h1><p>Hubs with spend above ₹2L</p></div></div>
-  <div class="table-card" style="overflow-x:auto">
-    <table><thead><tr><th>#</th><th>Hub</th><th>City</th><th>State</th><th>Facility</th><th>Total Spend</th><th>Transactions</th><th></th></tr></thead>
-    <tbody id="auditTable"><tr><td colspan="8" style="text-align:center;padding:32px;color:#999">Loading...</td></tr></tbody></table>
+  <div class="sh"><h1>Audit Flags</h1><p>Hubs above ₹2L spend threshold</p></div>
+  <div class="tc" style="overflow-x:auto">
+    <table><thead><tr><th>#</th><th>Hub</th><th>City</th><th>State</th><th>Facility</th><th>Total Spend</th><th>Txns</th><th></th></tr></thead>
+    <tbody id="at"><tr><td colspan="8" style="text-align:center;padding:32px;color:#999">Loading...</td></tr></tbody></table>
   </div>
 </div>
 
-<!-- HUB DETAIL -->
+<!-- DETAIL -->
 <div id="screen-hub-detail" class="screen">
   <button class="back-btn" onclick="showScreen('search')">← Back</button>
-  <div class="hub-header">
-    <div class="hub-header-info"><h2 id="detail-code">—</h2><div class="hub-meta" id="detail-meta"></div></div>
-    <div class="hub-total-box"><div class="hub-total-label">Total Spend</div><div class="hub-total-value" id="detail-total">—</div></div>
+  <div class="hh">
+    <div><h2 id="dc">—</h2><div class="hm" id="dm"></div></div>
+    <div class="htb"><div class="htl">Total Spend</div><div class="htv" id="dt">—</div></div>
   </div>
   <div class="charts-grid" style="margin-bottom:12px">
-    <div class="chart-card"><div class="chart-title">Spend by category</div><canvas id="hubCatChart" height="180"></canvas></div>
-    <div class="chart-card"><div class="chart-title">Monthly trend</div><canvas id="hubTrendChart" height="180"></canvas></div>
+    <div class="chart-card"><div class="chart-title">By category</div><canvas id="hcc" height="180"></canvas></div>
+    <div class="chart-card"><div class="chart-title">Monthly trend</div><canvas id="htc" height="180"></canvas></div>
   </div>
-  <div class="table-card" style="overflow-x:auto">
-    <div class="table-title">All transactions <span id="tx-count" style="font-size:12px;color:#999;font-weight:500"></span></div>
+  <div class="tc" style="overflow-x:auto">
+    <div class="tt">Transactions <span id="txc" style="font-size:12px;color:#999;font-weight:400"></span></div>
     <table><thead><tr><th>Date</th><th>Category</th><th>Employee</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead>
-    <tbody id="txTable"></tbody></table>
+    <tbody id="tx"></tbody></table>
   </div>
 </div>
 
 <script>
-const SHEET_ID='1lJaDQzuMdEK28Zlzsti8VuhdCaRsrb2jUHZYYEBJJ5c';
-const CAT_MAP={'House Keeping':'Housekeeping','Housekeeping':'Housekeeping','Tea/Coffee/Water':'Tea / Coffee / Water','Tea Coffee Water':'Tea / Coffee / Water','Printing & Stationary':'Printing & Stationery','Printing & Stationery':'Printing & Stationery','Repairs & Maintainance':'Repair & Maintenance','Repair & Maintenance':'Repair & Maintenance','Electricity':'Electricity','Internet':'Internet & Mobile','Mobile Reimbursement':'Internet & Mobile','Transactional SMS':'Internet & Mobile','Rent - Maintenance':'Rent','Rent':'Rent','Rates & Taxes':'Rent','Food':'Food & Welfare','Rider Meet Expenses':'Food & Welfare','Team Building':'Food & Welfare','Local Transport':'Travel & Transport','Conveyance':'Travel & Transport','Miscellaneous Expenses':'Miscellaneous','Professional Fees':'Miscellaneous','Marketing Expenses':'Miscellaneous'};
-const CAT_COLORS={'Rent':'#F5C518','Electricity':'#1DB87E','Housekeeping':'#2196F3','Repair & Maintenance':'#9C27B0','Internet & Mobile':'#FF9800','Tea / Coffee / Water':'#00BCD4','Printing & Stationery':'#E53935','Food & Welfare':'#F59E0B','Travel & Transport':'#64748B','Miscellaneous':'#8B5CF6','Other':'#888'};
+const CAT_MAP={'House Keeping':'Housekeeping','Housekeeping':'Housekeeping','Tea/Coffee/Water':'Tea / Coffee / Water','Printing & Stationary':'Printing & Stationery','Printing & Stationery':'Printing & Stationery','Repairs & Maintainance':'Repair & Maintenance','Repair & Maintenance':'Repair & Maintenance','Electricity':'Electricity','Internet':'Internet & Mobile','Mobile Reimbursement':'Internet & Mobile','Transactional SMS':'Internet & Mobile','Rent - Maintenance':'Rent','Rent':'Rent','Rates & Taxes':'Rent','Food':'Food & Welfare','Rider Meet Expenses':'Food & Welfare','Team Building':'Food & Welfare','Local Transport':'Travel & Transport','Conveyance':'Travel & Transport','Miscellaneous Expenses':'Miscellaneous','Professional Fees':'Miscellaneous'};
+const CC={'Rent':'#F5C518','Electricity':'#1DB87E','Housekeeping':'#2196F3','Repair & Maintenance':'#9C27B0','Internet & Mobile':'#FF9800','Tea / Coffee / Water':'#00BCD4','Printing & Stationery':'#E53935','Food & Welfare':'#F59E0B','Travel & Transport':'#64748B','Miscellaneous':'#8B5CF6','Other':'#888'};
 const fmt=n=>'₹'+Number(Math.round(n||0)).toLocaleString('en-IN');
 const fmtK=n=>!n?'₹0':n>=100000?'₹'+(n/100000).toFixed(1)+'L':n>=1000?'₹'+(n/1000).toFixed(0)+'K':'₹'+Math.round(n);
-const mapCat=raw=>{if(!raw)return'Other';for(const[k,v]of Object.entries(CAT_MAP))if(raw.toLowerCase().includes(k.toLowerCase()))return v;return'Other';};
+const mc=r=>{if(!r)return'Other';for(const[k,v]of Object.entries(CAT_MAP))if(r.toLowerCase().includes(k.toLowerCase()))return v;return'Other';};
 
-function parseCSV(text){
-  const lines=text.trim().split('\n');if(lines.length<2)return[];
-  const headers=lines[0].split(',').map(h=>h.replace(/^"|"$/g,'').trim());
-  return lines.slice(1).map(line=>{
-    const vals=[];let cur='';let inQ=false;
-    for(const ch of line){if(ch==='"')inQ=!inQ;else if(ch===','&&!inQ){vals.push(cur.trim());cur='';}else cur+=ch;}
-    vals.push(cur.trim());
-    const obj={};headers.forEach((h,i)=>obj[h]=vals[i]||'');return obj;
-  });
+function setStatus(s,t){document.getElementById('sdot').className='dot '+s;document.getElementById('stxt').textContent=t;}
+function setProgress(p,l,s){document.getElementById('prog-bar').style.width=p+'%';document.getElementById('prog-label').textContent=l;document.getElementById('prog-sub').textContent=s;}
+
+// Fast CSV parser
+function parseCSV(txt){
+  const lines=txt.split('\n');
+  if(lines.length<2)return{headers:[],rows:[]};
+  const parseRow=line=>{const vals=[];let c='',q=false;for(const ch of line){if(ch==='"'){q=!q;}else if(ch===','&&!q){vals.push(c.trim());c='';}else c+=ch;}vals.push(c.trim());return vals;};
+  const headers=parseRow(lines[0]).map(h=>h.replace(/^"|"$/g,''));
+  const rows=[];
+  for(let i=1;i<lines.length;i++){if(!lines[i].trim())continue;const v=parseRow(lines[i]);const obj={};headers.forEach((h,j)=>obj[h]=(v[j]||'').replace(/^"|"$/g,''));rows.push(obj);}
+  return{headers,rows};
 }
 
-async function fetchAllSheets(){
-  let allRows=[];let tabs=0;
-  for(let gid=0;gid<=20;gid++){
-    try{
-      const r=await fetch(`/api/sheet?gid=${gid}`);
-      if(!r.ok)break;
-      const txt=await r.text();
-      if(!txt.trim()||txt.includes('<!DOCTYPE')||txt.includes('error'))break;
-      const rows=parseCSV(txt);
-      if(rows.length>0){allRows=allRows.concat(rows);tabs++;}
-      else break;
-    }catch(e){break;}
-  }
-  return{rows:allRows,tabs};
-}
-
-function processData(rows){
-  if(!rows.length)return null;
-  const keys=Object.keys(rows[0]);
-  // Exact column mapping based on your Happy sheet structure
-  const hubCol='Sitting Location';
-  const cityCol='City';
-  const stateCol='State';
-  const catCol='Category chain';
-  const amtCol='Expense Amount';
-  const dateCol='Date of expense';
-  const statusCol='Transaction Status';
-  const empCol='Name';
-  const descCol='Description';
-  const facilityCol='Facility Type';
-
-  const hubMap={};
-  rows.forEach(row=>{
-    const hub=(row[hubCol]||'').trim();if(!hub)return;
-    const amount=parseFloat((row[amtCol]||'0').replace(/[^0-9.-]/g,''))||0;
-    const cat=mapCat(row[catCol]||'');
-    if(!hubMap[hub])hubMap[hub]={hub_code:hub,city:(row[cityCol]||'').trim(),state:(row[stateCol]||'').trim(),facility_type:(row[facilityCol]||'').trim(),total_ytd:0,tx_count:0,categories:{},monthly:{},transactions:[]};
-    const h=hubMap[hub];
-    h.total_ytd+=amount;h.tx_count++;
-    h.categories[cat]=(h.categories[cat]||0)+amount;
-    const m=(row[dateCol]||'').substring(0,7)||'Unknown';
-    h.monthly[m]=(h.monthly[m]||0)+amount;
-    h.transactions.push({date:row[dateCol]||'',category:cat,employee:(row[empCol]||'').trim(),description:(row[descCol]||'').trim(),amount,status:(row[statusCol]||'').trim()});
-  });
-  Object.values(hubMap).forEach(h=>h.transactions.sort((a,b)=>b.date.localeCompare(a.date)));
-  const hubs=Object.values(hubMap).sort((a,b)=>b.total_ytd-a.total_ytd);
-  const totalSpend=hubs.reduce((s,h)=>s+h.total_ytd,0);
-  const flagged=hubs.filter(h=>h.total_ytd>200000);
-  const stateMap={};const catGlobal={};
-  hubs.forEach(h=>{
-    if(h.state)stateMap[h.state]=(stateMap[h.state]||0)+h.total_ytd;
-    Object.entries(h.categories).forEach(([c,v])=>catGlobal[c]=(catGlobal[c]||0)+v);
-  });
-  return{hubs,totalSpend,flagged,states:Object.entries(stateMap).sort((a,b)=>b[1]-a[1]).slice(0,10),cats:Object.entries(catGlobal).sort((a,b)=>b[1]-a[1]),totalRows:rows.length};
-}
-
-let DATA=null,sC=null,cC=null,hCC=null,hTC=null;
+let DATA=null,sCI=null,cCI=null,hCI=null,hTI=null;
 
 async function init(){
-  setStatus('loading','Loading from Google Sheets...');
+  setStatus('amber','Loading...');
+  setProgress(10,'Connecting to Google Sheets...','This takes a few seconds on first load');
   try{
-    const{rows,tabs}=await fetchAllSheets();
-    if(!rows.length)throw new Error('No data found. Please make sure the sheet is public (Share → Anyone with the link → Viewer).');
-    DATA=processData(rows);
-    if(!DATA)throw new Error('Could not parse data. Check sheet format.');
-    setStatus('live',`Live data — ${DATA.totalRows.toLocaleString()} rows, ${tabs} tab${tabs!==1?'s':''}`);
-    renderDashboard();renderHubs(DATA.hubs);renderAudit();populateFilters();
+    const r=await fetch('/api/sheet?gid=0');
+    setProgress(40,'Parsing data...','Processing your expense records');
+    if(!r.ok)throw new Error('Sheet fetch failed');
+    const txt=await r.text();
+    if(!txt||txt.includes('error'))throw new Error('Empty or error response');
+    setProgress(60,'Building hub summaries...','Calculating spend by hub, state, category');
+    
+    // Parse in next tick to not block UI
+    await new Promise(res=>setTimeout(res,0));
+    const{rows}=parseCSV(txt);
+    setProgress(80,'Rendering dashboard...','Almost done');
+    await new Promise(res=>setTimeout(res,0));
+    
+    DATA=process(rows);
+    setProgress(100,'Done!','');
+    setStatus('green',`Live — ${DATA.totalRows.toLocaleString()} rows`);
+    
+    await new Promise(res=>setTimeout(res,200));
+    document.getElementById('prog-wrap').style.display='none';
+    document.getElementById('dash').style.display='block';
+    renderDash();renderHubs(DATA.hubs);renderAudit();populateFilters();
   }catch(e){
-    setStatus('error','Failed to load');
-    document.getElementById('dash-loading').style.display='none';
-    document.getElementById('dash-error').style.display='block';
-    document.getElementById('dash-error').innerHTML=`<strong>Could not load sheet data</strong><br><br>${e.message}`;
+    setStatus('red','Error');
+    document.getElementById('prog-wrap').innerHTML=`<div style="color:#E53935;font-size:13px"><strong>Failed to load data</strong><br><br>${e.message}<br><br>Check: sheet must be public (Share → Anyone with link → Viewer)</div>`;
   }
 }
 
-function setStatus(s,m){const e=document.getElementById('dataStatus');e.innerHTML=`<span class="status-dot ${s==='live'?'live':s==='loading'?'loading':'error'}"></span>${m}`;}
+function process(rows){
+  const hubs={};
+  rows.forEach(r=>{
+    const hub=(r['Sitting Location']||'').trim();if(!hub)return;
+    const amt=parseFloat((r['Expense Amount']||'0').replace(/[^0-9.-]/g,''))||0;
+    const cat=mc(r['Category chain']||r['Category']||'');
+    const city=(r['City']||'').trim();
+    const state=(r['State']||'').trim();
+    const fac=(r['Facility Type']||'').trim();
+    const date=(r['Date of expense']||'').trim();
+    const status=(r['Transaction Status']||'').trim();
+    const emp=(r['Name']||'').trim();
+    const desc=(r['Description']||r['Report name']||'').trim();
+    if(!hubs[hub])hubs[hub]={hub_code:hub,city,state,fac,total:0,count:0,cats:{},monthly:{},txs:[]};
+    const h=hubs[hub];
+    h.total+=amt;h.count++;
+    h.cats[cat]=(h.cats[cat]||0)+amt;
+    const mo=date.substring(0,7)||'?';h.monthly[mo]=(h.monthly[mo]||0)+amt;
+    if(h.txs.length<200)h.txs.push({date,cat,emp,desc,amt,status});
+  });
+  const list=Object.values(hubs).sort((a,b)=>b.total-a.total);
+  const total=list.reduce((s,h)=>s+h.total,0);
+  const sm={},cm={};
+  list.forEach(h=>{if(h.state)sm[h.state]=(sm[h.state]||0)+h.total;Object.entries(h.cats).forEach(([c,v])=>cm[c]=(cm[c]||0)+v);});
+  return{hubs:list,total,flagged:list.filter(h=>h.total>200000),states:Object.entries(sm).sort((a,b)=>b[1]-a[1]).slice(0,10),cats:Object.entries(cm).sort((a,b)=>b[1]-a[1]),totalRows:rows.length};
+}
 
-function renderDashboard(){
-  document.getElementById('dash-loading').style.display='none';
-  document.getElementById('dash-content').style.display='block';
-  document.getElementById('dash-sub').textContent=`Live data · ${DATA.hubs.length} hubs`;
-  document.getElementById('kpi-hubs').textContent=DATA.hubs.length.toLocaleString();
-  document.getElementById('kpi-spend').textContent=fmtK(DATA.totalSpend);
-  document.getElementById('kpi-spend-sub').textContent=DATA.cats.length+' categories';
-  document.getElementById('kpi-flagged').textContent=DATA.flagged.length;
-  document.getElementById('kpi-records').textContent=DATA.totalRows.toLocaleString();
-  if(sC)sC.destroy();
-  sC=new Chart(document.getElementById('stateChart'),{type:'bar',data:{labels:DATA.states.map(s=>s[0]),datasets:[{data:DATA.states.map(s=>s[1]),backgroundColor:'#F5C518',borderRadius:4,borderSkipped:false}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>fmtK(v.raw)}}},scales:{x:{ticks:{callback:v=>fmtK(v),font:{family:'Poppins',size:10}},grid:{display:false}},y:{ticks:{font:{family:'Poppins',size:11}},grid:{display:false}}},responsive:true,maintainAspectRatio:false}});
-  if(cC)cC.destroy();
-  cC=new Chart(document.getElementById('catChart'),{type:'doughnut',data:{labels:DATA.cats.map(c=>c[0]),datasets:[{data:DATA.cats.map(c=>c[1]),backgroundColor:DATA.cats.map(c=>CAT_COLORS[c[0]]||'#888'),borderWidth:0}]},options:{plugins:{legend:{position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:8,padding:6}},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${fmtK(ctx.raw)}`}}},responsive:true,maintainAspectRatio:false,cutout:'60%'}});
-  const g=document.getElementById('topHubsGrid');g.innerHTML='';
-  DATA.hubs.slice(0,8).forEach((h,i)=>{g.innerHTML+=`<div class="hub-tile ${i<3?'top3':'rest'}" onclick="showHubDetail('${h.hub_code}')"><div class="hub-rank">#${i+1}</div><div class="hub-code-t">${h.hub_code}</div><div class="hub-ytd">${fmtK(h.total_ytd)}</div><div class="hub-city-t">${h.city||'—'}</div></div>`;});
+function renderDash(){
+  document.getElementById('dsub').textContent=`Live data · ${DATA.hubs.length} hubs`;
+  document.getElementById('k1').textContent=DATA.hubs.length.toLocaleString();
+  document.getElementById('k2').textContent=fmtK(DATA.total);
+  document.getElementById('k2s').textContent=DATA.cats.length+' categories';
+  document.getElementById('k3').textContent=DATA.flagged.length;
+  document.getElementById('k4').textContent=DATA.totalRows.toLocaleString();
+  if(sCI)sCI.destroy();
+  sCI=new Chart(document.getElementById('sc'),{type:'bar',data:{labels:DATA.states.map(s=>s[0]),datasets:[{data:DATA.states.map(s=>s[1]),backgroundColor:'#F5C518',borderRadius:4,borderSkipped:false}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>fmtK(v.raw)}}},scales:{x:{ticks:{callback:v=>fmtK(v),font:{family:'Poppins',size:10}},grid:{display:false}},y:{ticks:{font:{family:'Poppins',size:11}},grid:{display:false}}},responsive:true,maintainAspectRatio:false}});
+  if(cCI)cCI.destroy();
+  cCI=new Chart(document.getElementById('cc'),{type:'doughnut',data:{labels:DATA.cats.map(c=>c[0]),datasets:[{data:DATA.cats.map(c=>c[1]),backgroundColor:DATA.cats.map(c=>CC[c[0]]||'#888'),borderWidth:0}]},options:{plugins:{legend:{position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:8,padding:6}},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${fmtK(ctx.raw)}`}}},responsive:true,maintainAspectRatio:false,cutout:'60%'}});
+  const g=document.getElementById('thg');g.innerHTML='';
+  DATA.hubs.slice(0,8).forEach((h,i)=>{g.innerHTML+=`<div class="hub-tile ${i<3?'t3':'tr'}" onclick="showDetail('${h.hub_code}')"><div class="hub-rank">#${i+1}</div><div class="hub-c">${h.hub_code}</div><div class="hub-y">${fmtK(h.total)}</div><div class="hub-ct">${h.city||'—'}</div></div>`;});
 }
 
 function populateFilters(){
-  const sf=document.getElementById('stateFilter');
+  const sf=document.getElementById('sf');
   [...new Set(DATA.hubs.map(h=>h.state).filter(Boolean))].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sf.appendChild(o);});
-  const ff=document.getElementById('facilityFilter');
-  [...new Set(DATA.hubs.map(h=>h.facility_type).filter(Boolean))].sort().forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;ff.appendChild(o);});
+  const ff=document.getElementById('ff');
+  [...new Set(DATA.hubs.map(h=>h.fac).filter(Boolean))].sort().forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;ff.appendChild(o);});
 }
 
-function renderHubs(hubs){
-  const g=document.getElementById('hubsGrid');
-  if(!hubs.length){g.innerHTML='<div style="padding:40px;text-align:center;color:#999;font-size:13px">No hubs found</div>';return;}
-  g.innerHTML=hubs.map(h=>{const over=h.total_ytd>200000;return`<div class="hub-card ${over?'flagged':''}" onclick="showHubDetail('${h.hub_code}')"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div><div class="hub-card-code">${h.hub_code}</div><div class="hub-card-location">${[h.city,h.state,h.facility_type].filter(Boolean).join(' · ')}</div></div>${over?'<span class="chip chip-red">High</span>':''}</div><div class="hub-card-spend">${fmtK(h.total_ytd)}</div><div style="font-size:11px;color:#999;margin-top:4px">${h.tx_count} transactions</div></div>`;}).join('');
-  document.getElementById('resultsCount').textContent=`${hubs.length} hubs`;
+function renderHubs(list){
+  const g=document.getElementById('hg');
+  if(!list.length){g.innerHTML='<div style="padding:40px;text-align:center;color:#999;font-size:13px">No hubs found</div>';return;}
+  g.innerHTML=list.map(h=>{const fl=h.total>200000;return`<div class="hc ${fl?'fl':''}" onclick="showDetail('${h.hub_code}')"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div><div class="hc-code">${h.hub_code}</div><div class="hc-loc">${[h.city,h.state,h.fac].filter(Boolean).join(' · ')}</div></div>${fl?'<span class="chip cr">High</span>':''}</div><div class="hc-spend">${fmtK(h.total)}</div><div style="font-size:11px;color:#999;margin-top:4px">${h.count} transactions</div></div>`;}).join('');
+  document.getElementById('rc').textContent=`${list.length} hubs`;
 }
 
-function filterHubs(){
+function fh(){
   if(!DATA)return;
-  const q=document.getElementById('searchInput').value.toLowerCase();
-  const st=document.getElementById('stateFilter').value;
-  const ft=document.getElementById('facilityFilter').value;
-  const sort=document.getElementById('sortFilter').value;
-  let f=DATA.hubs.filter(h=>(!q||h.hub_code.toLowerCase().includes(q)||h.city.toLowerCase().includes(q)||h.state.toLowerCase().includes(q))&&(!st||h.state===st)&&(!ft||h.facility_type===ft));
-  if(sort==='name')f=[...f].sort((a,b)=>a.hub_code.localeCompare(b.hub_code));
+  const q=document.getElementById('qi').value.toLowerCase();
+  const st=document.getElementById('sf').value;
+  const ft=document.getElementById('ff').value;
+  const so=document.getElementById('sof').value;
+  let f=DATA.hubs.filter(h=>(!q||h.hub_code.toLowerCase().includes(q)||h.city.toLowerCase().includes(q)||h.state.toLowerCase().includes(q))&&(!st||h.state===st)&&(!ft||h.fac===ft));
+  if(so==='name')f=[...f].sort((a,b)=>a.hub_code.localeCompare(b.hub_code));
   renderHubs(f);
 }
 
 function renderAudit(){
-  const at=document.getElementById('auditTable');
+  const at=document.getElementById('at');
   if(!DATA.flagged.length){at.innerHTML='<tr><td colspan="8" style="text-align:center;padding:32px;color:#999">No hubs above ₹2L</td></tr>';return;}
-  at.innerHTML=DATA.flagged.map((h,i)=>`<tr><td>${i+1}</td><td class="bold" style="cursor:pointer;color:#1565C0" onclick="showHubDetail('${h.hub_code}')">${h.hub_code}</td><td>${h.city||'—'}</td><td>${h.state||'—'}</td><td>${h.facility_type?`<span class="chip chip-blue">${h.facility_type}</span>`:'—'}</td><td class="red">${fmt(h.total_ytd)}</td><td>${h.tx_count}</td><td><button onclick="showHubDetail('${h.hub_code}')" style="padding:5px 12px;background:#F5C518;border:none;border-radius:6px;cursor:pointer;font-weight:800;font-family:'Poppins',sans-serif;font-size:11px">View →</button></td></tr>`).join('');
+  at.innerHTML=DATA.flagged.map((h,i)=>`<tr><td>${i+1}</td><td class="b" style="cursor:pointer;color:#1565C0" onclick="showDetail('${h.hub_code}')">${h.hub_code}</td><td>${h.city||'—'}</td><td>${h.state||'—'}</td><td>${h.fac?`<span class="chip cb">${h.fac}</span>`:'—'}</td><td class="red">${fmt(h.total)}</td><td>${h.count}</td><td><button onclick="showDetail('${h.hub_code}')" style="padding:5px 12px;background:#F5C518;border:none;border-radius:6px;cursor:pointer;font-weight:800;font-family:'Poppins',sans-serif;font-size:11px">View →</button></td></tr>`).join('');
 }
 
-function showHubDetail(code){
+function showDetail(code){
   if(!DATA)return;
   const h=DATA.hubs.find(x=>x.hub_code===code);if(!h)return;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('screen-hub-detail').classList.add('active');
   document.querySelectorAll('.nav-tab')[1].classList.add('active');
-  document.getElementById('detail-code').textContent=code;
-  document.getElementById('detail-total').textContent=fmtK(h.total_ytd);
-  document.getElementById('detail-meta').innerHTML=[['City',h.city],['State',h.state],['Facility',h.facility_type],['Transactions',h.tx_count]].filter(([,v])=>v).map(([k,v])=>`<div><div class="meta-label">${k}</div><div class="meta-value">${v}</div></div>`).join('');
-  const cats=Object.entries(h.categories).sort((a,b)=>b[1]-a[1]);
-  if(hCC)hCC.destroy();
-  hCC=new Chart(document.getElementById('hubCatChart'),{type:'bar',data:{labels:cats.map(c=>c[0]),datasets:[{data:cats.map(c=>c[1]),backgroundColor:cats.map(c=>CAT_COLORS[c[0]]||'#888'),borderRadius:4}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>fmtK(v.raw)}}},scales:{x:{ticks:{font:{family:'Poppins',size:9}},grid:{display:false}},y:{ticks:{callback:v=>fmtK(v),font:{family:'Poppins',size:9}},grid:{color:'#F4F5F7'}}},responsive:true,maintainAspectRatio:false}});
-  const monthly=Object.entries(h.monthly).sort((a,b)=>a[0].localeCompare(b[0])).slice(-9);
-  if(hTC)hTC.destroy();
-  hTC=new Chart(document.getElementById('hubTrendChart'),{type:'line',data:{labels:monthly.map(m=>m[0]),datasets:[{data:monthly.map(m=>m[1]),borderColor:'#F5C518',backgroundColor:'rgba(245,197,24,0.1)',borderWidth:2.5,pointBackgroundColor:'#F5C518',pointRadius:4,fill:true,tension:0.4}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>fmtK(v.raw)}}},scales:{x:{ticks:{font:{family:'Poppins',size:9}},grid:{display:false}},y:{ticks:{callback:v=>fmtK(v),font:{family:'Poppins',size:9}},grid:{color:'#F4F5F7'}}},responsive:true,maintainAspectRatio:false}});
-  document.getElementById('tx-count').textContent=`(${h.transactions.length} total, showing 100)`;
-  document.getElementById('txTable').innerHTML=h.transactions.slice(0,100).map(t=>`<tr><td>${t.date||'—'}</td><td><span class="cat-badge">${t.category}</span></td><td>${t.employee||'—'}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis">${t.description||'—'}</td><td class="bold">${fmt(t.amount)}</td><td><span class="chip ${t.status==='Paid'||t.status==='Verified'?'chip-green':t.status==='Declined'?'chip-red':'chip-amber'}">${t.status||'—'}</span></td></tr>`).join('');
+  document.getElementById('dc').textContent=code;
+  document.getElementById('dt').textContent=fmtK(h.total);
+  document.getElementById('dm').innerHTML=[['City',h.city],['State',h.state],['Facility',h.fac],['Transactions',h.count]].filter(([,v])=>v).map(([k,v])=>`<div><div class="ml">${k}</div><div class="mv">${v}</div></div>`).join('');
+  const cats=Object.entries(h.cats).sort((a,b)=>b[1]-a[1]);
+  if(hCI)hCI.destroy();
+  hCI=new Chart(document.getElementById('hcc'),{type:'bar',data:{labels:cats.map(c=>c[0]),datasets:[{data:cats.map(c=>c[1]),backgroundColor:cats.map(c=>CC[c[0]]||'#888'),borderRadius:4}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>fmtK(v.raw)}}},scales:{x:{ticks:{font:{family:'Poppins',size:9}},grid:{display:false}},y:{ticks:{callback:v=>fmtK(v),font:{family:'Poppins',size:9}},grid:{color:'#F4F5F7'}}},responsive:true,maintainAspectRatio:false}});
+  const mo=Object.entries(h.monthly).sort((a,b)=>a[0].localeCompare(b[0])).slice(-9);
+  if(hTI)hTI.destroy();
+  hTI=new Chart(document.getElementById('htc'),{type:'line',data:{labels:mo.map(m=>m[0]),datasets:[{data:mo.map(m=>m[1]),borderColor:'#F5C518',backgroundColor:'rgba(245,197,24,0.1)',borderWidth:2.5,pointBackgroundColor:'#F5C518',pointRadius:4,fill:true,tension:0.4}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>fmtK(v.raw)}}},scales:{x:{ticks:{font:{family:'Poppins',size:9}},grid:{display:false}},y:{ticks:{callback:v=>fmtK(v),font:{family:'Poppins',size:9}},grid:{color:'#F4F5F7'}}},responsive:true,maintainAspectRatio:false}});
+  document.getElementById('txc').textContent=`(${h.txs.length} shown)`;
+  document.getElementById('tx').innerHTML=h.txs.slice(0,100).map(t=>`<tr><td>${t.date||'—'}</td><td><span class="cat-badge">${t.cat}</span></td><td>${t.emp||'—'}</td><td style="max-width:180px;overflow:hidden;text-overflow:ellipsis">${t.desc||'—'}</td><td class="b">${fmt(t.amt)}</td><td><span class="chip ${t.status==='Paid'||t.status==='Verified'?'cg':t.status==='Declined'?'cr':'ca'}">${t.status||'—'}</span></td></tr>`).join('');
 }
 
 function showScreen(name){
