@@ -101,8 +101,8 @@ td{padding:10px 12px;color:#555;white-space:nowrap}td.b{font-weight:800;color:#1
       <div class="kpi-card g"><div class="kpi-label">📋 Records</div><div class="kpi-value" id="k4">—</div><div class="kpi-sub">Total transactions</div></div>
     </div>
     <div class="charts-grid">
-      <div class="chart-card"><div class="chart-title">Spend by state</div><div class="chart-sub">YTD total</div><canvas id="sc" height="220"></canvas></div>
-      <div class="chart-card"><div class="chart-title">Category mix</div><div class="chart-sub">National split</div><canvas id="cc" height="220"></canvas></div>
+      <div class="chart-card"><div class="chart-title">Spend by state</div><div class="chart-sub">YTD total</div><div style="position:relative;height:220px;width:100%"><canvas id="sc"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Category mix</div><div class="chart-sub">National split</div><div style="position:relative;height:220px;width:100%"><canvas id="cc"></canvas></div></div>
     </div>
     <div class="top-hubs"><div class="top-hubs-title">Top hubs by spend</div><div class="top-hubs-grid" id="thg"></div></div>
   </div>
@@ -138,8 +138,8 @@ td{padding:10px 12px;color:#555;white-space:nowrap}td.b{font-weight:800;color:#1
     <div class="htb"><div class="htl">Total Spend</div><div class="htv" id="dt">—</div></div>
   </div>
   <div class="charts-grid" style="margin-bottom:12px">
-    <div class="chart-card"><div class="chart-title">By category</div><canvas id="hcc" height="180"></canvas></div>
-    <div class="chart-card"><div class="chart-title">Monthly trend</div><canvas id="htc" height="180"></canvas></div>
+    <div class="chart-card"><div class="chart-title">By category</div><div style="position:relative;height:180px;width:100%"><canvas id="hcc"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Monthly trend</div><div style="position:relative;height:180px;width:100%"><canvas id="htc"></canvas></div></div>
   </div>
   <div class="tc" style="overflow-x:auto">
     <div class="tt">Transactions <span id="txc" style="font-size:12px;color:#999;font-weight:400"></span></div>
